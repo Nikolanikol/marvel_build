@@ -1,15 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './components/app/App';
+import { createRoot } from 'react-dom/client';
 
 import './style/style.scss';
 
+ReactDOM.createRoot(document.getElementById('root'))
+  .render(
 
-
-ReactDOM.render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+  
+
+  )
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
