@@ -10,12 +10,7 @@ import {
     Link,
   } from "react-router-dom";
 import AppHeader from "../appHeader/AppHeader";
-import { MainPage, ComicsPager } from "../pages";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ComicsPage from "../comicsPage/ComicsPage";
-import ComicsMainList from "../comicsMainList/ComicsMainList";
+import { MainPage, ComicsPager, Page404, SingleComicPage} from "../pages";
 
 
 const App = ()=> {
@@ -28,6 +23,8 @@ const App = ()=> {
                     <Routes>
                         <Route path='/comics' element={<ComicsPager/>}/>
                         <Route path='/' element={<MainPage/>}/>
+                        <Route path='/comics/:comicId' element={<SingleComicPage/>}/>
+                        <Route path="*" element={<Page404/>}/>
                     </Routes>
                 </main>
             </div>

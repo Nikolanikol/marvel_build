@@ -6,6 +6,7 @@ import uw from './UW.png'
 import avanger from './Avengers.png'
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 const ComicsMainList = ()=>{
     useEffect(()=>{
@@ -29,10 +30,12 @@ const ComicsMainList = ()=>{
         const elements = comicsList.map((item, i)=>{
             const {id, name, prices, thumbnail} = item;
             return (
-                <div className="card-list__item" key={i}>
-                    <img src={thumbnail} alt="#"/>
-                    <div className="card-list__title">{name}</div>
-                    <div className="card-list__price">{prices}</div>
+                <div className="card-list__item" key={item.id}>
+                    <Link to={`/comics/${item.id}`}> 
+                        <img src={thumbnail} alt="#"/>
+                        <div className="card-list__title">{name}</div>
+                        <div className="card-list__price">{prices}</div>
+                    </Link>
                 </div>
             )
 
