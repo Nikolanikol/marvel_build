@@ -30,7 +30,7 @@ const ComicsMainList = ()=>{
         const elements = comicsList.map((item, i)=>{
             const {id, name, prices, thumbnail} = item;
             return (
-                <div className="card-list__item" key={item.id}>
+                <div className="card-list__item" key={i}>
                     <Link to={`/comics/${item.id}`}> 
                         <img src={thumbnail} alt="#"/>
                         <div className="card-list__title">{name}</div>

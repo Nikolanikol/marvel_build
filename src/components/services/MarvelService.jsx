@@ -34,7 +34,7 @@ const {loading, request, error, clearError} = useHttp();
         return {
             id : comics.id,
             name : comics.title, 
-            prices : comics.prices[0].price ? comics.prices[0].price: "not available",
+            prices : comics.prices[0].price ? comics.prices[0].price : "not available",
             thumbnail : comics.thumbnail.path +'.'+ comics.thumbnail.extension,
             description : comics.description || "There is no description",
             pageCount: comics.pageCount
