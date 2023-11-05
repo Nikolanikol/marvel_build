@@ -1,7 +1,7 @@
 import { useHttp } from "../../hooks/http.hook";
 
 const useMarvelService = ()=>{
-const {loading, request, error, clearError} = useHttp();
+const { request, clearError, process, setProcess} = useHttp();
 
     const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
     const _apiKey = 'apikey=a2229ccb06d8d97b20b5dea7ecc03dd7';
@@ -17,6 +17,21 @@ const {loading, request, error, clearError} = useHttp();
         const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
         return _transformCharacter(res.data.results[0]);
         
+    }
+
+    const getCharachterByName = async(name) =>{
+        const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`)
+        if(Object.keys(res.data.results).length > 0){
+            return {
+                id : res.data.results[0].id,
+                name : res.data.results[0].name,
+                desc : res.data.results[0].description,
+                thumbnail : res.data.results[0].thumbnail.path + "." +res.data.results[0].thumbnail.extension
+            }
+        }else{
+            return {}
+        }
+         
     }
     const getComics = async (id) =>{
         const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
@@ -56,7 +71,15 @@ const {loading, request, error, clearError} = useHttp();
             comics : char.comics.items
         }
     }
-    return {loading, error, getAllCharachters, getCharachter, clearError, getComicsList, getComics}
+    return {  
+        process,
+        setProcess,
+        getCharachterByName,
+        getAllCharachters,
+        getCharachter,
+        clearError,
+        getComicsList,
+        getComics}
 }
 
 export default useMarvelService;

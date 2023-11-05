@@ -41,3 +41,29 @@
         color: #fff;
     }
 }
+.char{
+    opacity: 0;
+    visibility: hidden;
+  }
+  .char-enter {
+    opacity: 0;
+  }
+  .char-enter-done {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms;
+  }
+  .char-enter-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms;
+  }
+  .char-exit {
+    opacity: 1;
+    visibility: visible;
+  
+  }
+  .char-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+  }

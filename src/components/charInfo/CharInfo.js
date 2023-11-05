@@ -1,15 +1,16 @@
 import './charInfo.scss';
-import Spinner from '../spinner/Spinner';
+import setContent from '../../utils/setContent';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import Skeleton from '../skeleton/Skeleton'
 import { useState, useEffect } from 'react';
+import CharSearch from '../charSearch/CharSearch';
 import useMarvelService from '../services/MarvelService';
+import { Link } from 'react-router-dom';
 
 const  CharInfo = (props)=> {
     const [char, setChar] = useState(null);
 
 
-    const {loading, error, getCharachter} = useMarvelService();
+    const { getCharachter, process, setProcess} = useMarvelService();
     useEffect(()=>{
         updateChar();
     },[props.charId])
@@ -20,29 +21,24 @@ const  CharInfo = (props)=> {
         }
         getCharachter(props.charId)
             .then(onCharLoaded)
+            .then(()=>setProcess('confirmed'))
     }
     const onCharLoaded = (char)=>{
         setChar(char)
     }
-    const skeleton = char || loading || error ? null : <Skeleton/>;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char = {char}/> : null;
 
+  
     return (
         <div className="char__info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+            {setContent(process,View, char)}
         </div>
     )
 
     
 }
 
-const View = ({char}) =>{
-    const {name, description, thumbnail, homepage, wiki, comics} = char;
+const View = ({data}) =>{
+    const {name, description, thumbnail, homepage, wiki, comics} = data;
     let imgStyle = {'objectFit' : 'cover'}
     if(thumbnail ==='http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'){
         imgStyle = {'objectFit' : 'contain'};
@@ -54,9 +50,9 @@ const View = ({char}) =>{
                 <div>
                     <div className="char__info-name">{name}</div>
                     <div className="char__btns">
-                        <a href={homepage} className="button button__main">
+                        <Link to={"/charachter/:charName"} href={homepage} className="button button__main">
                             <div className="inner">homepage</div>
-                        </a>
+                        </Link>
                         <a href={wiki} className="button button__secondary">
                             <div className="inner">Wiki</div>
                         </a>
@@ -84,6 +80,8 @@ const View = ({char}) =>{
                     })
                 }
             </ul>
+            <CharSearch />
+
         </>
     )
 }

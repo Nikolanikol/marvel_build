@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import './singleComicPage.scss';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -8,6 +9,7 @@ import useMarvelService from '../services/MarvelService';
 
 const SingleComicPage = () => {
     const {comicId} = useParams();
+    console.log(comicId)
     const [comic, setComics] = useState([])
     const {loading, error, clearError, getComics} = useMarvelService();
     useEffect(()=>{
@@ -42,16 +44,23 @@ const View = ({comic}) =>{
     const {name, description, pageCount, thumbnail, language, prices} = comic
     return (
         <div className="single-comic">
-        <img src={thumbnail} alt="x-men" className="single-comic__img"/>
-        <div className="single-comic__info">
-            <h2 className="single-comic__name">{name}</h2>
-            <p className="single-comic__descr">{description}</p>
-            <p className="single-comic__descr">Page count: {pageCount}</p>
-            <p className="single-comic__descr">Language: {language}</p>
-            <div className="single-comic__price">{prices}</div>
+            <Helmet>
+            <meta
+                name="description"
+                content={`${name} comics book`}
+            />
+            <title>{name}</title>
+            </Helmet>
+            <img src={thumbnail} alt="x-men" className="single-comic__img"/>
+            <div className="single-comic__info">
+                <h2 className="single-comic__name">{name}</h2>
+                <p className="single-comic__descr">{description}</p>
+                <p className="single-comic__descr">Page count: {pageCount}</p>
+                <p className="single-comic__descr">Language: {language}</p>
+                <div className="single-comic__price">{prices}</div>
+            </div>
+            <Link to={'/comics'} className="single-comic__back">Back to all</Link>
         </div>
-        <Link to={'/comics'} className="single-comic__back">Back to all</Link>
-    </div>
     )
 }
 

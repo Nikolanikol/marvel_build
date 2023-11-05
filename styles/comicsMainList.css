@@ -120,3 +120,7 @@ body {
   line-height: normal;
   text-transform: uppercase;
 }
+
+.card-list__load-more button:disabled {
+  opacity: 0.5;
+}
